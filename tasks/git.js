@@ -15,6 +15,10 @@ module.exports = function (grunt) {
         var args = Array.prototype.slice.call(arguments);
         var callback = args.pop();
 
+        if (typeof(grunt.task.current.options().gitdir) !== "undefined") {
+            args.unshift("--git-dir=" + grunt.task.current.options().gitdir);
+        }
+        
         grunt.util.spawn({
             cmd: 'git',
             args: args
