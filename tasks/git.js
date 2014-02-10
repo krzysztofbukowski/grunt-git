@@ -16,12 +16,13 @@ module.exports = function (grunt) {
         var callback = args.pop();
 
         if (typeof(grunt.task.current.options().gitdir) !== "undefined") {
-            args.unshift("--git-dir=" + grunt.task.current.options().gitdir);
+            args.unshift("--git-dir=" + grunt.task.current.options().gitdir + "/.git");
         }
         
         grunt.util.spawn({
             cmd: 'git',
-            args: args
+            args: args,
+            cwd: grunt.task.current.options().gitdir
         }, function () {
             callback.apply(this, arguments);
         });
